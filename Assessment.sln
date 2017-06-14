@@ -14,6 +14,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assessment.Service", "Asses
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assessment.UnitTest", "Assessment.UnitTest\Assessment.UnitTest.csproj", "{56CACC19-D7E4-414B-8D2A-2F2FF8A10A1B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AF4731D9-B661-4A17-A288-4888E32C7E66}"
+	ProjectSection(SolutionItems) = preProject
+		deploymentInstructions.txt = deploymentInstructions.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
