@@ -13,3 +13,5 @@ Instructions:
 The program only searches for .csv files in the base directory
 
 The Sorted output files will be in the above directory once the program complete running. 
+
+The .csv template file used in developing the program is also included
