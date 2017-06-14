@@ -9,9 +9,12 @@ using Assessment.BusinessLogic.Interface;
 using Ninject;
 
 namespace Assessment.BusinessLogic.Implementation {
+    /// <summary>
+    /// Customer Address interface implementation, exposes functionality for processing customer addresses and names
+    /// </summary>
     public class CustomerAddressManager : ICustomerAddressManager {
         private INinjectStandardKernel _iNinjectStarndardKernel;
-        private ICSVFIleManager _csvFileManager;
+        private ICSVFileManager _csvFileManager;
 
         /// <summary>
         /// CustomerAddressManager Constructor, it accept Ninject Kernel
@@ -21,7 +24,7 @@ namespace Assessment.BusinessLogic.Implementation {
             _iNinjectStarndardKernel = injectNinjectStandardKernel;
             //Create Ninject Kernel and get interface bindings
             IKernel kernel = _iNinjectStarndardKernel.GetStandardKernel();
-            _csvFileManager = kernel.Get<ICSVFIleManager>();
+            _csvFileManager = kernel.Get<ICSVFileManager>();
         }
 
         /// <summary>
@@ -93,7 +96,7 @@ namespace Assessment.BusinessLogic.Implementation {
         public int ExtractStreetAddressNumber(string addressColumn) {
             if (IsNumeric(addressColumn.Substring(0, 1))) {
                 var extractStreetNumber = addressColumn.SkipWhile(c => !Char.IsDigit(c)).TakeWhile(Char.IsDigit).ToArray();
-                return(int.Parse(new string(extractStreetNumber)));
+                return (int.Parse(new string(extractStreetNumber)));
             }
             return 0;
         }
@@ -115,7 +118,7 @@ namespace Assessment.BusinessLogic.Implementation {
         /// <returns>List of customer names</returns>
         public List<string> BreakdownCustomerNames(List<CustomerAddress> customerAddresses) {
             var customerNames = new List<string>();
-            foreach(var customer in customerAddresses) {
+            foreach (var customer in customerAddresses) {
                 customerNames.Add(customer.FirstName);
                 customerNames.Add(customer.LastName);
             }
@@ -131,9 +134,9 @@ namespace Assessment.BusinessLogic.Implementation {
             var sortedNames = new List<string>();
             var groupedNames = customerNames.GroupBy(x => x).Select(group =>
                                new {
-                                      Name = group.Key,
-                                       Count = group.Count()
-                                    }).OrderByDescending(x => x.Count).OrderBy(x => x.Name).ToList();
+                                   Name = group.Key,
+                                   Count = group.Count()
+                               }).OrderByDescending(x => x.Count).ThenBy(x => x.Name).ToList();
             groupedNames.ForEach(row => {
                 sortedNames.Add(string.Format("{0},{1}", row.Name, row.Count));
             });
@@ -146,7 +149,7 @@ namespace Assessment.BusinessLogic.Implementation {
         /// <param name="customerAddresses">List of addresses</param>
         /// <returns>Sorted Address</returns>
         public List<CustomerAddress> SortAddressesAlphabetically(List<CustomerAddress> customerAddresses) {
-            return (customerAddresses.OrderByDescending(x => x.AddressStreetName).ToList());
+            return (customerAddresses.OrderBy(x => x.AddressStreetName).ToList());
         }
 
         /// <summary>
@@ -154,35 +157,50 @@ namespace Assessment.BusinessLogic.Implementation {
         /// </summary>
         /// <returns>.txt file</returns>
         public bool CreateSortedCustomerNamesTxtFile() {
-            var outfileName = ConfigurationManager.AppSettings.Get("OutputFileName");
             var baseDirectory = ConfigurationManager.AppSettings.Get("AssessmentBaseDirectory");
             var contents = string.Empty;
-            string responseFilePath = string.Format(@"{0}\SortedCustomerNames-{1}.txt", baseDirectory, outfileName);
+            string responseFilePath = string.Format(@"{0}\SortedCustomerNames.txt", baseDirectory);
             var customerNames = BreakdownCustomerNames(GetCustomerAddresses());
             var sortCountCustomerNames = SortCountCustomerNames(customerNames);
 
             foreach (var line in sortCountCustomerNames) {
-                contents = contents + string.Format("{0} ", line, Environment.NewLine);
+                contents = contents + string.Format("{0} \n", line);
             }
             return (_csvFileManager.CreateCSVFileContents(responseFilePath, contents));
-        }        
+        }
 
         /// <summary>
         /// Output the sorted customer addresses to a .txt file
         /// </summary>
         /// <returns>.txt file</returns>
         public bool CreateSortedCustomerAddressesTxtFile() {
-            var outfileName = ConfigurationManager.AppSettings.Get("OutputFileName");
             var baseDirectory = ConfigurationManager.AppSettings.Get("AssessmentBaseDirectory");
-            string responseFilePath = string.Format(@"{0}\SortedAddresses-{1}.txt", baseDirectory, outfileName);
+            string responseFilePath = string.Format(@"{0}\SortedCustomerAddresses.txt", baseDirectory);
             var contents = string.Empty;
             var fileContents = SortAddressesAlphabetically(GetCustomerAddresses());
 
             foreach (var line in fileContents) {
-                contents = contents + string.Format("{0} {1} {2}", line.AddressStreetNumber, line.AddressStreetName, 
-                                                                   Environment.NewLine);
+                contents = contents + string.Format("{0} {1}\n", line.AddressStreetNumber, line.AddressStreetName);
             }
-            return (_csvFileManager.CreateCSVFileContents(responseFilePath,contents));
+            return (_csvFileManager.CreateCSVFileContents(responseFilePath, contents));
+        }
+
+        /// <summary>
+        /// Get the base directory for processing customer addresses
+        /// </summary>
+        /// <returns></returns>
+        public string GetBaseDirectory() {
+            return (ConfigurationManager.AppSettings.Get("AssessmentBaseDirectory"));
+        }
+
+        /// <summary>
+        /// Extract .csv file contents
+        /// </summary>
+        /// <returns></returns>
+        public List<string> ExtractCsvFileContents(string filePath) {
+            if (_csvFileManager.CheckFileSize(filePath))
+                return (_csvFileManager.ReadCSVFile(filePath));
+            return null;
         }
     }
 }

@@ -80,5 +80,19 @@ namespace Assessment.BusinessLogic.Interface {
         /// </summary>
         /// <returns>.txt file</returns>
         bool CreateSortedCustomerAddressesTxtFile();
+
+        /// <summary>
+        /// Get the base directory for processing customer addresses
+        /// </summary>
+        /// <returns></returns>
+        string GetBaseDirectory();
+
+        /// <summary>
+        /// Extract .csv file contents
+        /// </summary>
+        /// <returns></returns>
+        List<string> ExtractCsvFileContents(string filePath);
+
+
     }
 }

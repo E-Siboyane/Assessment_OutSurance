@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assessment.ConsoleApplication", "Assessment.ConsoleApplication\Assessment.ConsoleApplication.csproj", "{5811539E-C5F1-4756-BF19-090741E456CF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6BF5B516-EB77-4A64-9A39-07609BC6766E} = {6BF5B516-EB77-4A64-9A39-07609BC6766E}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assessment.BusinessLogic", "Assessment.BusinessLogic\Assessment.BusinessLogic.csproj", "{EBB69E26-E8B8-4516-8DCD-7F8BAC001758}"
 EndProject

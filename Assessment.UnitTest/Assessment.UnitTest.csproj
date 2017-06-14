@@ -40,6 +40,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -49,17 +50,36 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="BusinessLogic.UnitTest\CustomerAddressManagerUnitTest.cs" />
+    <Compile Include="BusinessLogic.UnitTest\CSVFileManagerUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Assessment.BusinessLogic\Assessment.BusinessLogic.csproj">
+      <Project>{ebb69e26-e8b8-4516-8dcd-7f8bac001758}</Project>
+      <Name>Assessment.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Assessment.ConsoleApplication\Assessment.ConsoleApplication.csproj">
+      <Project>{5811539e-c5f1-4756-bf19-090741e456cf}</Project>
+      <Name>Assessment.ConsoleApplication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Assessment.Service\Assessment.Service.csproj">
+      <Project>{6bf5b516-eb77-4a64-9a39-07609bc6766e}</Project>
+      <Name>Assessment.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

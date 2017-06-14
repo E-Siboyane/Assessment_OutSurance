@@ -8,7 +8,7 @@ namespace Assessment.BusinessLogic.Interface {
     /// <summary>
     /// Interface for Managing interaction with CSV File
     /// </summary>
-    public interface ICSVFIleManager {
+    public interface ICSVFileManager {
 
         /// <summary>
         /// Search for file files with .csv extension in the provided directory

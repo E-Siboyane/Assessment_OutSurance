@@ -57,7 +57,7 @@
     <Compile Include="DTO\CustomerAddress.cs" />
     <Compile Include="Implementation\CSVFileManager.cs" />
     <Compile Include="Implementation\CustomerAddressManager.cs" />
-    <Compile Include="Interface\ICSVFIleManager.cs" />
+    <Compile Include="Interface\ICSVFileManager.cs" />
     <Compile Include="Interface\ICustomerAddressManager.cs" />
     <Compile Include="Interface\INinjectStandardKernel.cs" />
     <Compile Include="NinjectBindings.cs" />

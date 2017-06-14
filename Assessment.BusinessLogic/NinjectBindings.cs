@@ -13,7 +13,7 @@ namespace Assessment.BusinessLogic {
     /// </summary>
     public class NinjectBindings : NinjectModule {
         public override void Load() {
-            Bind<ICSVFIleManager>().To<CSVFileManager>();
+            Bind<ICSVFileManager>().To<CSVFileManager>();
             Bind<ICustomerAddressManager>().To<CustomerAddressManager>();
         }
     }

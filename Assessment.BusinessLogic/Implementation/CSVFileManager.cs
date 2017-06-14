@@ -8,7 +8,7 @@ using System.Configuration;
 using Assessment.BusinessLogic.Interface;
 
 namespace Assessment.BusinessLogic.Implementation {
-    public class CSVFileManager : ICSVFIleManager {
+    public class CSVFileManager : ICSVFileManager {
         
         /// <summary>
         /// CSVFileManager constructor
@@ -70,16 +70,34 @@ namespace Assessment.BusinessLogic.Implementation {
                 return (WriteContent(@filePath, contents));
             }
             else {
-                var path = Path.GetDirectoryName(@filePath);
-                var path1 = Path.GetPathRoot(@filePath);
-                var fileResponseName = string.Format(@"{0}\{1}{2}.txt", path, ConfigurationManager.AppSettings.Get("OutputFileName"),
-                                                      DateTime.Now.ToString("yyyyMMddhhmmss"));
-                if (RenameFile(@filePath, @fileResponseName)) {
+                if (DeleteFile(filePath)) {
                     return (WriteContent(@filePath, contents));
                 }
             }
             return (false);
         }
+
+        ///// <summary>
+        ///// Create .csv file contents
+        ///// </summary>
+        ///// <param name="filePath">FilePath e.g C\ManageAddress\CustomerAddressesSorted.csv</param>
+        ///// <param name="contents">file Contents</param>
+        ///// <returns>true/false success status</returns>
+        //public bool CreateCSVFileContents(string filePath, string contents) {
+        //    if (!File.Exists(@filePath)) {
+        //        return (WriteContent(@filePath, contents));
+        //    }
+        //    else {
+        //        var path = Path.GetDirectoryName(@filePath);
+        //        var fileName = Path.GetFileNameWithoutExtension(@filePath);
+        //        var fileResponseName = string.Format(@"{0}\{1}{2}.txt", path, fileName,
+        //                                              DateTime.Now.ToString("yyyyMMddhhmmss"));
+        //        if (RenameFile(@filePath, @fileResponseName)) {
+        //            return (WriteContent(@filePath, contents));
+        //        }
+        //    }
+        //    return (false);
+        //}
 
         /// <summary>
         /// Create base Directory for managing .csv file
