@@ -1,7 +1,7 @@
 The solution is divided into 4 Projects, Namely:
  1. Assessment.BusinessLogic - Core Application functionality
  2. Assessment.Service - WCF Service for exposing BusinessLogic Functionality
- 3. Assessment.ConsoleApplication - Console Program that generates the 2 output files. It Uses Service to generate the .txt files.
+ 3. Assessment.ConsoleApplication - Console Program that generates the 2 output files. It Uses the WCF Service to generate the .txt files.
  4. Assessment.UnitTest - MS Unit Test that test the BusinessLogic Layer functionality.
 
 Instructions:
