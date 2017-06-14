@@ -8,7 +8,7 @@ using Ninject;
 
 namespace Assessment.ConsoleApplication {
     /// <summary>
-    /// This Program generate the two(2) output .txt files for SortedCustomerAddresses.txt (file) and SortedCustomerNames.txt (file)
+    /// This Program generate the two(2) output (.txt) files for SortedCustomerAddresses.txt (file) and SortedCustomerNames.txt (file)
     /// It uses WCF Service to process the files, and the service is injectcted into the program using Ninject
     /// </summary>
     class Program {
